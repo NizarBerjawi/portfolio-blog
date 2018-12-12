@@ -1,0 +1,15 @@
+{
+  "app": {
+    "js": "js/app.d5071a383c2101e375d7.js"
+  },
+  "common": {
+    "js": "js/common.d5071a383c2101e375d7.js"
+  },
+  "styles": {
+    "css": "css/styles.4af36244cc36c4e64da7.css",
+    "js": "js/styles.d5071a383c2101e375d7.js"
+  },
+  "vendor": {
+    "js": "js/vendor.d5071a383c2101e375d7.js"
+  }
+}

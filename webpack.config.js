@@ -8,9 +8,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   // Here the application starts executing and webpack starts bundling
   entry: {
-    main: './resources/assets/js/main',
-    vendor: './resources/assets/js/vendor',
-    styles: './resources/assets/styles/styles'
+    app: './resources/js/app',
+    vendor: './resources/js/vendor',
+    styles: './resources/sass/app.scss'
   },
 
   // Options related to how webpack emits results
@@ -42,7 +42,7 @@ module.exports = {
       {
         // Allows transpiling JavaScript files using Babel and webpack.
         test: /\.(js|jsx)$/,
-        // include: path.resolve('./resources/assets'),
+        include: path.resolve('./resources'),
         // Exclude these folders from testing
         exclude: /(node_modules|bower_components)/,
         use: {
@@ -64,8 +64,8 @@ module.exports = {
       {
         test: /\.s(a|c)ss$/,
         use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader?reduceInitial=false',
+          process.env.NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
           'resolve-url-loader',
           'sass-loader?sourceMap=true'
         ]
