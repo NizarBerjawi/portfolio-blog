@@ -1,15 +1,26 @@
 {
   "app": {
-    "js": "js/app.d5071a383c2101e375d7.js"
+    "js": "js/app.9730dba8d9c509db3da1.js"
   },
   "common": {
-    "js": "js/common.d5071a383c2101e375d7.js"
+    "js": "js/common.9730dba8d9c509db3da1.js"
+  },
+  "custom": {
+    "css": "css/custom.4d4d63fa79141d0bfe5c.css",
+    "js": "js/custom.9730dba8d9c509db3da1.js"
   },
   "styles": {
-    "css": "css/styles.4af36244cc36c4e64da7.css",
-    "js": "js/styles.d5071a383c2101e375d7.js"
+    "css": "css/styles.f0e841d6e5620ff2597b.css",
+    "js": "js/styles.9730dba8d9c509db3da1.js"
   },
   "vendor": {
-    "js": "js/vendor.d5071a383c2101e375d7.js"
+    "js": "js/vendor.9730dba8d9c509db3da1.js"
+  },
+  "": {
+    "woff2": "fonts/Simple-Line-Icons.0cb0b9c589c0624c9c78dd3d83e946f6.woff2",
+    "woff": "fonts/Simple-Line-Icons.78f07e2c2a535c26ef21d95e41bd7175.woff",
+    "ttf": "fonts/Simple-Line-Icons.d2285965fe34b05465047401b8595dd0.ttf",
+    "eot": "fonts/Simple-Line-Icons.f33df365d6d0255b586f2920355e94d7.eot",
+    "svg": "images/Simple-Line-Icons.2fe2efe63441d830b1acd106c1fe8734.svg"
   }
 }

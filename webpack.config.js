@@ -10,7 +10,8 @@ module.exports = {
   entry: {
     app: './resources/js/app',
     vendor: './resources/js/vendor',
-    styles: './resources/sass/app.scss'
+    custom: './resources/sass/app.scss',
+    styles: './resources/sass/vendor.scss'
   },
 
   // Options related to how webpack emits results
@@ -64,7 +65,7 @@ module.exports = {
       {
         test: /\.s(a|c)ss$/,
         use: [
-          process.env.NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'resolve-url-loader',
           'sass-loader?sourceMap=true'
