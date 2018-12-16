@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
@@ -10,8 +11,7 @@ module.exports = {
   entry: {
     app: './resources/js/app',
     vendor: './resources/js/vendor',
-    custom: './resources/sass/app.scss',
-    styles: './resources/sass/vendor.scss'
+    styles: './resources/sass/app.scss',
   },
 
   // Options related to how webpack emits results
@@ -114,6 +114,13 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'css/[name].[chunkhash].css'
     }),
+
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, 'resources/img'),
+        to: path.resolve(__dirname, 'public/dist/img')
+      },
+    ]),
 
     // Makes it easier to see which dependencies are being patched
     new webpack.NamedModulesPlugin(),
