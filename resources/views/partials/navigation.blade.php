@@ -27,8 +27,9 @@
       <a class="js-scroll-trigger" href="{{ route('login') }}">{{ __('Login') }}</a>
     </li>
     @else
-        <li class="sidebar-nav-item"
-            onclick="event.preventDefault();
+        <li class="sidebar-nav-item">
+            <a href="#"
+               onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();">
             {{ __('Logout') }}
         </li>

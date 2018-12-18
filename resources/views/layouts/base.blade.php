@@ -10,6 +10,7 @@
         <title>{{ config('app.name', 'Portfolio') }}</title>
 
         <link href="{{ webpack('styles', 'css') }}" rel="stylesheet">
+
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
         @yield('styles')
@@ -20,9 +21,9 @@
         @yield('content')
 
         <script src="{{ webpack('vendor', 'js') }}"></script>
-        <script src="{{ webpack('app', 'js') }}"></script>
         <script src="{{ webpack('common', 'js') }}"></script>
         <script src="{{ webpack('styles', 'js') }}"></script>
+        <script src="{{ webpack('app', 'js') }}"></script>
 
         @yield('scripts')
     </body>

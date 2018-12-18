@@ -10,6 +10,7 @@ module.exports = {
   // Here the application starts executing and webpack starts bundling
   entry: {
     app: './resources/js/app',
+    admin: './resources/js/admin',
     vendor: './resources/js/vendor',
     styles: './resources/sass/app.scss',
   },
@@ -86,7 +87,7 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: '[name].[hash].[ext]',
-          outputPath: 'images/',
+          outputPath: 'img/',
         }
       },
     ]
