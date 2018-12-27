@@ -10,7 +10,7 @@
 if (! function_exists('webpack')) {
     function webpack(string $bundle, string $type) : string
     {
-        $path = public_path('dist/manifest.json');
+        $path = public_path('manifest.json');
 
         if (! File::exists($path)) {
             throw new InvalidArgumentException('Unable to locate webpack manifest');
@@ -22,6 +22,6 @@ if (! function_exists('webpack')) {
             throw new InvalidArgumentException("Unable to find the bundle '$bundle' of type '$type'");
         }
 
-        return url('dist', $manifest->$bundle->$type);
+        return url($manifest->$bundle->$type);
     }
 }

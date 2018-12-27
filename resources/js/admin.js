@@ -1,3 +1,9 @@
-import './vendor/front'
-import './vendor/charts-custom'
-import './vendor/charts-home'
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import LoginForm from './modules/auth/login/login';
+
+ReactDOM.render(
+    <LoginForm />,
+    document.getElementById('app')
+);

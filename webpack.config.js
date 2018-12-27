@@ -18,7 +18,10 @@ module.exports = {
   // Options related to how webpack emits results
   output: {
     // The target directory for all output files must be an absolute path
-    path: path.resolve(__dirname, 'public/dist'),
+    path: path.resolve(__dirname, 'public/'),
+    // Specifies the public URL address of the output files when referenced
+    // in a browser.
+    publicPath: './',
     // The filename template for entry chunks
     filename: 'js/[name].[hash].js',
   },
@@ -102,26 +105,31 @@ module.exports = {
 
     new AssetsPlugin({
       filename: 'manifest.json',
-      path: path.resolve('./public/dist'),
-      publicPath: 'public/dist/',
+      path: path.resolve('./public'),
+      publicPath: 'public/',
       includeManifest: 'manifest',
       prettyPrint: true
     }),
 
     new CleanWebpackPlugin([
-      'public/dist'
+      'public/css',
+      'public/fonts',
+      'public/img',
+      'public/js',
+
     ]),
 
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[chunkhash].css'
+      filename: 'css/[name].[chunkhash].css',
+      path: path.resolve('./public'),
     }),
 
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, 'resources/img'),
-        to: path.resolve(__dirname, 'public/dist/img')
-      },
-    ]),
+    // new CopyWebpackPlugin([
+    //   {
+    //     from: path.resolve(__dirname, 'resources/img'),
+    //     to: path.resolve(__dirname, 'public/img')
+    //   },
+    // ]),
 
     // Makes it easier to see which dependencies are being patched
     new webpack.NamedModulesPlugin(),
