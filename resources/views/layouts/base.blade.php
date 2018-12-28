@@ -21,7 +21,6 @@
         <script src="{{ webpack('vendor', 'js') }}"></script>
         <script src="{{ webpack('common', 'js') }}"></script>
         <script src="{{ webpack('styles', 'js') }}"></script>
-        <script src="{{ webpack('app', 'js') }}"></script>
 
         @yield('scripts')
     </body>

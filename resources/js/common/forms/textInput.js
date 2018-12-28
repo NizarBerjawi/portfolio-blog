@@ -7,7 +7,9 @@ let TextInput = ({ onChange, label, type, placeholder, validation }) => {
 
     return (
         <div className="form-group mb-4">
+            {label && (
             <label>{label}</label>
+            )}
             <input
                 type={type || 'text'}
                 className="form-control border-0 shadow form-control-lg"

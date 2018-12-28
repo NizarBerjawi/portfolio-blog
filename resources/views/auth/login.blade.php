@@ -1,6 +1,7 @@
 @extends('layouts.base')
 
 @section('styles')
+    <link href="{{ webpack('styles', 'css') }}" rel="stylesheet">
     <link href="{{ webpack('adminStyles', 'css') }}" rel="stylesheet">
 @endsection
 

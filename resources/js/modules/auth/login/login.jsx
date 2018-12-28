@@ -30,25 +30,33 @@ class LoginForm extends React.Component {
                             </div>
                         </div>
 
-                        <form>
-                            <TextInput
-                                placeholder="Email"
-                                onChange={this.update('email')}/>
+                        <div className="col-lg-5 px-lg-4">
+                            <h1 className="text-base text-primary text-uppercase mb-4">Dashboard</h1>
+                            <h2 className="mb-4">Welcome back!</h2>
+                            <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                            <form className="mt-4">
+                                <TextInput
+                                    placeholder="Email"
+                                    onChange={this.update('email')}/>
 
-                            <TextInput
-                                type="password"
-                                placeholder="Password"
-                                onChange={this.update('password')}/>
+                                <TextInput
+                                    type="password"
+                                    placeholder="Password"
+                                    onChange={this.update('password')}/>
 
-                            <div className="form-group mb-4">
-                                <div className="custom-control custom-checkbox">
-                                    <input className="form-check-input custom-control-input" type="checkbox" name="remember" id="remember" />
-                                    <label htmlFor="remember" className="custom-control-label">Remember Me</label>
+                                <div className="form-group mb-4">
+                                    <div className="custom-control custom-checkbox">
+                                        <input className="form-check-input custom-control-input" type="checkbox" name="remember" id="remember" />
+                                        <label htmlFor="remember" className="custom-control-label">Remember Me</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <button type="submit" className="btn btn-primary shadow px-5">Log in</button>
-                            <a href="/" class="btn btn-secondary shadow px-5">Cancel</a>
-                        </form>
+                                <div className="form-group mb-4">
+
+                                <a href="/" className="btn btn-secondary shadow px-5">Cancel</a>
+                                <button type="submit" className="btn btn-primary shadow px-5">Log in</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
