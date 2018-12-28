@@ -9,17 +9,16 @@ let TextInput = ({ onChange, label, type, placeholder, validation }) => {
         <div className="form-group mb-4">
             <label>{label}</label>
             <input
-                type={type}
+                type={type || 'text'}
                 className="form-control border-0 shadow form-control-lg"
                 placeholder={placeholder}
                 onChange={changed}
             />
-
-            {validation &&
+            {validation && (
             <span className="invalid-feedback" role="alert">
                 <strong>{validation}</strong>
             </span>
-            }
+            )}
         </div>
     );
 }

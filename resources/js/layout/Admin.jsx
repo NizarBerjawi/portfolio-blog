@@ -1,6 +1,6 @@
 import React from 'react';
 
-let Layout = ({ children }) => {
+let AdminLayout = ({ children }) => {
     return (
         <div>
             {children}
@@ -8,4 +8,4 @@ let Layout = ({ children }) => {
     );
 }
 
-export { Layout };
+export { AdminLayout };

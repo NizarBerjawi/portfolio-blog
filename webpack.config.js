@@ -13,15 +13,13 @@ module.exports = {
     admin: './resources/js/admin',
     vendor: './resources/js/vendor',
     styles: './resources/sass/app.scss',
+    adminStyles: './resources/sass/admin.scss',
   },
 
   // Options related to how webpack emits results
   output: {
     // The target directory for all output files must be an absolute path
-    path: path.resolve(__dirname, 'public/'),
-    // Specifies the public URL address of the output files when referenced
-    // in a browser.
-    publicPath: './',
+    path: path.resolve(__dirname, 'public/dist'),
     // The filename template for entry chunks
     filename: 'js/[name].[hash].js',
   },
@@ -82,6 +80,7 @@ module.exports = {
         options: {
           name: '[name].[hash].[ext]',
           outputPath: 'fonts/',
+          publicPath: '/dist/fonts'
         }
       },
 
@@ -89,8 +88,9 @@ module.exports = {
         test: /\.(png|gif|jpe?g|svg)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[hash].[ext]',
+          name: '[name].[ext]',
           outputPath: 'img/',
+          publicPath: '/dist/img'
         }
       },
     ]
@@ -105,31 +105,26 @@ module.exports = {
 
     new AssetsPlugin({
       filename: 'manifest.json',
-      path: path.resolve('./public'),
-      publicPath: 'public/',
+      path: path.resolve('./public/dist'),
+      publicPath: 'public/dist/',
       includeManifest: 'manifest',
       prettyPrint: true
     }),
 
     new CleanWebpackPlugin([
-      'public/css',
-      'public/fonts',
-      'public/img',
-      'public/js',
-
+      'public/dist'
     ]),
 
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[chunkhash].css',
-      path: path.resolve('./public'),
+      filename: 'css/[name].[chunkhash].css'
     }),
 
-    // new CopyWebpackPlugin([
-    //   {
-    //     from: path.resolve(__dirname, 'resources/img'),
-    //     to: path.resolve(__dirname, 'public/img')
-    //   },
-    // ]),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, 'resources/img'),
+        to: path.resolve(__dirname, 'public/dist/img')
+      },
+    ]),
 
     // Makes it easier to see which dependencies are being patched
     new webpack.NamedModulesPlugin(),

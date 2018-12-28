@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from '../../../common/forms';
+import { TextInput } from '../../../common/forms';
 import Illustration from './illustration.svg';
 
 class LoginForm extends React.Component {
@@ -26,16 +26,16 @@ class LoginForm extends React.Component {
                     <div className="row align-items-center py-5">
                         <div className="col-5 col-lg-7 mx-auto mb-5 mb-lg-0">
                             <div className="pr-lg-5">
-                                <img src={Illustration} alt="" className="img-fluid" />
+                                <img src={require('./illustration.svg')} alt="" className="img-fluid" />
                             </div>
                         </div>
 
                         <form>
-                            <Input
+                            <TextInput
                                 placeholder="Email"
                                 onChange={this.update('email')}/>
 
-                            <Input
+                            <TextInput
                                 type="password"
                                 placeholder="Password"
                                 onChange={this.update('password')}/>
@@ -47,6 +47,7 @@ class LoginForm extends React.Component {
                                 </div>
                             </div>
                             <button type="submit" className="btn btn-primary shadow px-5">Log in</button>
+                            <a href="/" class="btn btn-secondary shadow px-5">Cancel</a>
                         </form>
                     </div>
                 </div>

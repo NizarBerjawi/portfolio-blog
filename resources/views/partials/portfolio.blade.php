@@ -14,7 +14,7 @@
               <p class="mb-0">A yellow pencil with envelopes on a clean, blue backdrop!</p>
             </span>
           </span>
-          <img class="img-fluid" src="dist/img/portfolio-1.jpg" alt="">
+          <img class="img-fluid" src="{{ asset('dist/img/portfolio-1.jpg') }}" alt="">
         </a>
       </div>
       <div class="col-lg-6">
@@ -25,7 +25,7 @@
               <p class="mb-0">A dark blue background with a colored pencil, a clip, and a tiny ice cream cone!</p>
             </span>
           </span>
-          <img class="img-fluid" src="dist/img/portfolio-2.jpg" alt="">
+          <img class="img-fluid" src="{{ asset('dist/img/portfolio-2.jpg') }}" alt="">
         </a>
       </div>
       <div class="col-lg-6">
@@ -36,7 +36,7 @@
               <p class="mb-0">Strawberries are such a tasty snack, especially with a little sugar on top!</p>
             </span>
           </span>
-          <img class="img-fluid" src="dist/img/portfolio-3.jpg" alt="">
+          <img class="img-fluid" src="{{ asset('dist/img/portfolio-3.jpg') }}" alt="">
         </a>
       </div>
       <div class="col-lg-6">
@@ -47,7 +47,7 @@
               <p class="mb-0">A yellow workspace with some scissors, pencils, and other objects.</p>
             </span>
           </span>
-          <img class="img-fluid" src="dist/img/portfolio-4.jpg" alt="">
+          <img class="img-fluid" src="{{ asset('dist/img/portfolio-4.jpg') }}" alt="">
         </a>
       </div>
     </div>

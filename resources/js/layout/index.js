@@ -1,1 +1,1 @@
-export { Header } from './';
+export { Admin } from './Admin';

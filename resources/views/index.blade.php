@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@section('styles')
+    <link href="{{ webpack('styles', 'css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
     @include('partials.navigation')
     @include('partials.header')
