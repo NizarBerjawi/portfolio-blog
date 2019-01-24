@@ -1,16 +1,16 @@
 const path = require('path');
 const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 module.exports = {
   // Here the application starts executing and webpack starts bundling
   entry: {
     app: './resources/js/app',
-    admin: './resources/js/admin',
     vendor: './resources/js/vendor',
     styles: './resources/sass/app.scss',
     adminStyles: './resources/sass/admin.scss',
@@ -125,6 +125,13 @@ module.exports = {
         to: path.resolve(__dirname, 'public/dist/img')
       },
     ]),
+
+    // new HtmlWebpackPlugin({
+    //   title: 'Portfolio',
+    //   filename: path.resolve(__dirname, 'resources/views/index.blade.php'),
+    //   template: './resources/js/index.html'
+    // }),
+
 
     // Makes it easier to see which dependencies are being patched
     new webpack.NamedModulesPlugin(),

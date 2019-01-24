@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'PortfolioController@index');
+
+Route::view('/{path?}', 'auth.login');
 
 Auth::routes();

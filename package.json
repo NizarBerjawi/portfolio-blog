@@ -32,13 +32,15 @@
         "style-loader": "^0.23.1",
         "webpack": "^4.27.1",
         "webpack-cli": "^3.1.2",
-        "webpack-dev-server": "^3.1.10"
+        "webpack-dev-server": "^3.1.14"
     },
     "dependencies": {
+        "dotenv": "^6.2.0",
         "jquery": "^3.3.1",
         "react": "^16.6.3",
         "react-dom": "^16.6.3",
         "react-router-dom": "^4.3.1",
-        "startbootstrap-stylish-portfolio": "^5.0.1"
+        "startbootstrap-stylish-portfolio": "^5.0.1",
+        "whatwg-fetch": "^3.0.0"
     }
 }

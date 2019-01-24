@@ -19,7 +19,7 @@
         @yield('content')
 
         <script src="{{ webpack('vendor', 'js') }}"></script>
-        <script src="{{ webpack('common', 'js') }}"></script>
+        <script data-search-pseudo-elements defer src="{{ webpack('common', 'js') }}"></script>
         <script src="{{ webpack('styles', 'js') }}"></script>
 
         @yield('scripts')

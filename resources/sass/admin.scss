@@ -1,1 +1,19 @@
 @import './vendor/css/style.default.css';
+
+.sidebar-link[data-toggle="collapse"]::before {
+  display: none;
+}
+
+.sidebar-link[data-toggle="collapse"][aria-expanded='true']::before {
+  display: none;
+}
+
+.sidebar-link svg {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  color: #aaa;
+  font-weight: 900;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}

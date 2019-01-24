@@ -16,3 +16,13 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function() {
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::get('me', 'AuthController@me');
+});
+
+Route::group(['prefix' => 'portfolio'], function() {
+    Route::get('/', 'SectionController@index');
+});

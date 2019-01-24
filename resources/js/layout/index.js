@@ -1,1 +1,3 @@
-export { Admin } from './Admin';
+import AdminLayout from './admin';
+
+export { AdminLayout };

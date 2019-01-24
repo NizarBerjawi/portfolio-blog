@@ -10,6 +10,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ webpack('admin', 'js') }}"></script>
+    <script src="{{ webpack('app', 'js') }}"></script>
     <script src="{{ webpack('adminStyles', 'js') }}"></script>
 @endsection
