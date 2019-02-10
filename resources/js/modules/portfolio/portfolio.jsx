@@ -5,7 +5,6 @@ import { AdminLayout } from '../../layout';
 import { Button } from '../../common/button';
 import { Table } from '../../common/tables';
 import { Pagination } from '../../common/pagination';
-import LoadingIndicator from '../../common/loader';
 import * as PortfolioService from './service';
 
 class Portfolio extends React.Component {
@@ -28,12 +27,11 @@ class Portfolio extends React.Component {
     PortfolioService
       .fetchSections()
       .then((res) => {
-        const { links, meta } = res;
-
+        const { data, links, meta } = res;
         this.setState({
-          sections: res.data,
+          sections: data,
           pagination: {
-            visible: res.meta.last_page > 1,
+            visible: meta.last_page > 1,
             links,
             meta
           },
@@ -55,19 +53,6 @@ class Portfolio extends React.Component {
     this.loadSections(e)
   }
 
-  get sections() {
-    return this.state.sections.map(section => {
-      const action = (
-        <Link
-          to={`${section.slug}/edit`}
-          className="btn btn-primary btn-sm">
-            Edit
-        </Link>
-      );
-      return { ...section, action }
-    });
-  }
-
   loadSections(e) {
     const url = new URL(e.target.href);
     const page = url.searchParams.get('page');
@@ -75,12 +60,12 @@ class Portfolio extends React.Component {
     PortfolioService
       .fetchSections({ page })
       .then((res) => {
-        const { links, meta } = res;
+        const { data, links, meta } = res;
 
         this.setState({
-          sections: res.data,
+          sections: data,
           pagination: {
-            visible: res.meta.last_page > 1,
+            visible: meta.last_page > 1,
             links,
             meta
           },
@@ -88,6 +73,19 @@ class Portfolio extends React.Component {
         });
       })
       .catch((err) => console.log('Error: ', err.text));
+  }
+
+  get sections() {
+    return this.state.sections.map(section => {
+      const action = (
+        <Link
+          to={`portfolio/${section.slug}/edit`}
+          className="btn btn-primary btn-sm">
+            Edit
+        </Link>
+      );
+      return { ...section, action }
+    });
   }
 
   render() {
@@ -118,10 +116,8 @@ class Portfolio extends React.Component {
                   <Pagination
                     pagination={this.state.pagination}
                     changePage={e => this.handlePageChange(e)}
-                    currentPage={this.state.pagination}
-                    pageRange={5}
-
-                    visible={this.state.pagination.visible}
+                    pageRange={4}
+                    visible={!this.state.loading && this.state.pagination.visible}
                   />
                 </div>
               </div>

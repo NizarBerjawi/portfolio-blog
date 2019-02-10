@@ -11,7 +11,7 @@ export default [
         component: Portfolio,
     },
     {
-      path: 'portfolio/:id/edit',
+      path: '/portfolio/:section/edit',
       exact: true,
       auth: true,
       isAuthenticated: Auth.check(),

@@ -37,4 +37,20 @@ let post = (url = '', data = {}) => {
     });
 }
 
-export {get, post};
+// PUT requests
+let put = (url = '', data = {}) => {
+    const method = 'PUT';
+
+    if (Auth.check()) {
+      const payload = localStorage.getItem('access_token');
+      headers['Authorization'] = `Bearer ${payload}`;
+    }
+
+    return fetch(API_URL + url, {
+        method,
+        headers,
+        body: JSON.stringify(data)
+    });
+}
+
+export {get, post, put};

@@ -6,10 +6,10 @@ class Button extends React.Component {
   }
 
   render() {
-    const { label, type, className } = this.props;
+    const { label, type, click, className } = this.props;
 
     return (
-        <button type={type} className={'btn'.concat(` ${className}`)}>{label}</button>
+        <button type={type} className={'btn'.concat(` ${className}`)} onClick={this.props.click}>{label}</button>
     );
   }
 }

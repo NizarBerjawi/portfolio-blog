@@ -23,4 +23,4 @@ let TextInput = ({ onChange, name, value, label, type, placeholder, validation }
     );
 }
 
-export default TextInput;
+export { TextInput };

@@ -25,4 +25,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function() {
 
 Route::group(['prefix' => 'portfolio'], function() {
     Route::get('/', 'SectionController@index');
+    Route::get('{section}', 'SectionController@show');
+    Route::put('{section}', 'SectionController@update');
 });

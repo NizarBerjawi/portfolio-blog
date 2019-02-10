@@ -17,7 +17,8 @@ class CreatePortfolioSectionsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('slug')->unique();
-            $table->json('content');
+            $table->string('template')->nullable();
+            $table->binary('markup')->nullable();
             $table->integer('sort_order')->unique();
             $table->timestamps();
             $table->softDeletes();

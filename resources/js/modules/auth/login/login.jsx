@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import { TextInput } from '../../../common/forms';
+import { TextInput } from '../../../common/form';
 import Illustration from './illustration.svg';
 import * as Auth from '../service';
 

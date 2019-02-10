@@ -2,8 +2,8 @@
 
 namespace Portfolio\Portfolio;
 
-use Illuminate\Database\Eloquent\Model;
 use Portfolio\Support\Slug\Sluggable;
+use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
@@ -16,13 +16,35 @@ class Section extends Model
      */
     protected $table = 'portfolio_sections';
 
+
+    /**
+     * The primary key for the model.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id';
+
+    /**
+     * The "type" of the auto-incrementing ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'int';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'content', 'sort_order'
+        'name', 'template', 'markup', 'sort_order',
     ];
 
     /**
@@ -34,20 +56,23 @@ class Section extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
-        'content' => 'json'
     ];
 
     /**
-     * Stores the student Bluecard form data in the entry.
-     * The form data is 'translated' to be more readable and stored as
-     * a json string.
      *
-     * @param $value
-     * @return StudentData
      */
-    public function setContentAttribute($value)
+    public function getMarkupAttribute($value)
     {
-        $this->attributes['content'] = json_encode($value);
+      return $value ?? $this->defaultMarkup();
+    }
+
+    /**
+     *
+     *
+     */
+    protected function defaultMarkup()
+    {
+      return view("partials.{$this->template}", ['section' => $this])->render();
     }
 
     /**
@@ -58,5 +83,13 @@ class Section extends Model
     public function getSlugSourceColumn()
     {
         return 'name';
+    }
+
+    /**
+     *
+     */
+    public function getRouteKeyName()
+    {
+      return $this->getSlugColumn();
     }
 }

@@ -121,16 +121,19 @@ class Slug
      */
     private function getSimilarSlugs($slug)
     {
-        if (!$this->model instanceof Model || !method_exists($this->model, 'getSlugColumn')) {
-            return collect([]);
-        }
+      if (!$this->model instanceof Model || !method_exists($this->model, 'getSlugColumn')) {
+          return collect([]);
+      }
 
-        $slugColumn = $this->model->getSlugColumn();
+      $slugColumn = $this->model->getSlugColumn();
 
-        return $this->model->newQuery()
-                           ->where($slugColumn, $slug)
-                           ->orWhere($slugColumn, 'LIKE', $slug . static::SEPARATOR . '%')
-                           ->get()
-                           ->pluck($slugColumn);
+      $idColumn = $this->model->getKeyName();
+
+      return $this->model->newQuery()
+                  ->where($slugColumn, $slug)
+                  ->where($idColumn, '!=', $this->model->id)
+                  ->orWhere($slugColumn, 'LIKE', $slug . static::SEPARATOR . '%')
+                  ->get()
+                  ->pluck($slugColumn);
     }
 }

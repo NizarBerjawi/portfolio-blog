@@ -19,7 +19,8 @@ class SectionResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'content' => $this->content,
+            'template' => $this->template,
+            'markup' => $this->markup,
             'sort_order' => $this->sort_order,
             'updated_at' => $this->updated_at->format('Y-m-d H:i'),
         ];

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Portfolio\Portfolio\Section;
+use Portfolio\Portfolio\SectionResource;
 
 class PortfolioSeeder extends Seeder
 {
@@ -18,11 +19,11 @@ class PortfolioSeeder extends Seeder
     private function createSections()
     {
       foreach($this->sections() as $secion => $data) {
-          Section::create([
-              'name' => array_get($data, 'name'),
-              'content' => array_get($data, 'content'),
-              'sort_order' => array_get($data, 'sort_order'),
-          ]);
+          $section = new Section($data);
+          $template = array_get($data, 'template');
+          $markup = view("partials.{$template}", compact('section'))->render();
+          $section->fill(compact('markup'));
+          $section->save();
       }
     }
 
@@ -31,30 +32,12 @@ class PortfolioSeeder extends Seeder
         return [
             'header' => [
                 'name' => 'Header',
-                'content' => [
-                    'masthead' => 'Lina\'s Portfolio',
-                    'headline' => 'Welcome to Lina\'s Portfolio',
-                    'button' => [
-                        'label'  => 'Find Out More',
-                        'style'  => 'btn-primary',
-                        'size'   => 'btn-xl',
-                        'hidden' => false,
-                    ]
-                ],
+                'template' => 'header',
                 'sort_order' => 1
             ],
             'about' => [
                 'name' => 'About',
-                'content' => [
-                  'header' => 'Stylish Portfolio is the perfect theme for your next project!',
-                  'headline' => 'This theme features a flexible, UX friendly sidebar menu and stock photos from our friends at Unsplash',
-                  'button' => [
-                      'label'  => 'What we offer',
-                      'style'  => 'btn-primary',
-                      'size'   => 'btn-xl',
-                      'hidden' => false,
-                  ]
-                ],
+                'template' => 'about',
                 'sort_order' => 2,
 
             ]

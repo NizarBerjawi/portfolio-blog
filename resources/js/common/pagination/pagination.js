@@ -1,16 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+let getPageRange = (size, startAt = 0) => {
+  return [...Array(size).keys()].map(i => i + startAt);
+}
+
 let Pagination = ({ pagination = {}, changePage, pageRange = 3, visible = true }) => {
   if (!visible) { return null; }
   // The current page
   const current = pagination.meta.current_page;
   // The last available page of data
   const last = pagination.meta.last_page;
-  // The location of the center pagination
-  const center = Math.ceil(pageRange / 2);
-  // AN array representing the range of pages
-  const pages = [...Array(pageRange).keys()].map(x => x + 1);
+
+  let page = 1;
+  // An array representing the range of pages
+  let pages = [];
+  while (page <= last) {
+    let range = getPageRange(pageRange, page);
+    if (range.includes(current)) {
+      pages = [...range];
+      break;
+    }
+    page += pageRange;
+  }
 
   // Generate the page links
   const PageLinks = () => pages.map(
