@@ -1,2 +1,2 @@
-export * from './form';
+export * from './html-form';
 export * from './text-input';

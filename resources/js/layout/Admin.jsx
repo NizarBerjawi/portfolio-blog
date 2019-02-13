@@ -1,3 +1,4 @@
+import store from 'store';
 import React from 'react';
 import { Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
@@ -16,11 +17,7 @@ class AdminLayout extends React.Component {
     super(props);
 
     this.state = {
-      redirect: '',
-      sidebar: {
-        visible: true
-      },
-      user: {},
+      sidebar: { visible: true },
       loading: true
     }
 
@@ -30,28 +27,24 @@ class AdminLayout extends React.Component {
 
   componentDidMount() {
     const loading = false;
-    // Test if the user has been loaded from the database
-    let userLoaded = Object.keys(this.state.user).length !== 0;
+    const user = Auth.user();
 
-    if (userLoaded) {
-      this.setState({loading});
+    if (user) {
+      this.setState({ loading, user });
       return;
     }
 
     Auth.fetchUser()
-        .then(res => {
-          const user = res;
-          this.setState({user, loading: false});
-        })
-        .catch((err) => console.log('Error: ', err.text));
+      .then(res => this.setState({ user: res, loading: false}))
+      .catch((err) => console.log('Error: ', err.text));
   }
 
   handleLogout(e) {
-      e.preventDefault();
+    e.preventDefault();
 
-      Auth.logout()
-          .then(() => this.setState({ redirect: '/login' }) )
-          .catch((err) => console.log('Error: ', err.text) );
+    Auth.logout()
+      .then(() => this.setState({ redirect: '/login' }) )
+      .catch((err) => console.log('Error: ', err.text) );
   }
 
   toggleSidebar(e) {

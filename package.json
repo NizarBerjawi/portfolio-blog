@@ -43,6 +43,7 @@
         "react-dom": "^16.6.3",
         "react-router-dom": "^4.3.1",
         "startbootstrap-stylish-portfolio": "^5.0.1",
+        "store": "^2.0.12",
         "whatwg-fetch": "^3.0.0"
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Form extends React.Component {
+class HtmlForm extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,4 +16,4 @@ class Form extends React.Component {
   }
 }
 
-export { Form };
+export { HtmlForm };

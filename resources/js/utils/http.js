@@ -1,3 +1,4 @@
+import store from 'store';
 import { fetch } from 'whatwg-fetch';
 import * as Auth from '../modules/auth/service';
 
@@ -11,7 +12,7 @@ const headers = {
 // GET requests
 let get = (url, options = {}) => {
   if (Auth.check()) {
-    const payload = localStorage.getItem('access_token');
+    const payload = store.get('access_token');
     headers['Authorization'] = `Bearer ${payload}`;
   }
 
@@ -26,7 +27,7 @@ let post = (url = '', data = {}) => {
     const method = 'POST';
 
     if (Auth.check()) {
-      const payload = localStorage.getItem('access_token');
+      const payload = store.get('access_token');
       headers['Authorization'] = `Bearer ${payload}`;
     }
 
@@ -42,7 +43,7 @@ let put = (url = '', data = {}) => {
     const method = 'PUT';
 
     if (Auth.check()) {
-      const payload = localStorage.getItem('access_token');
+      const payload = store.get('access_token');
       headers['Authorization'] = `Bearer ${payload}`;
     }
 

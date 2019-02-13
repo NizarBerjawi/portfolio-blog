@@ -1,5 +1,5 @@
 import Portfolio from './portfolio';
-import EditPortfolio from './editPortfolio';
+import Page from './edit/Page';
 import * as Auth from '../auth/service';
 
 export default [
@@ -15,6 +15,6 @@ export default [
       exact: true,
       auth: true,
       isAuthenticated: Auth.check(),
-      component: EditPortfolio,
+      component: Page,
     }
 ]

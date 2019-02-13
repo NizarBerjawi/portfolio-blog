@@ -16,10 +16,11 @@ class RedirectToApp
      */
     public function handle($request, Closure $next, $guard = null)
     {
+      dd($request->path());
         $paths = ['/'];
 
         if (in_array($request->path(), $paths)) {
-            return response()->view('web.index');
+            return response()->action('\App\Http\Controllers\PortfolioController@index');
         }
 
         return $next($request);

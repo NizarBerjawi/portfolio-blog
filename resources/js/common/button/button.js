@@ -1,17 +1,9 @@
 import React from 'react';
 
-class Button extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { label, type, click, className } = this.props;
-
-    return (
-        <button type={type} className={'btn'.concat(` ${className}`)} onClick={this.props.click}>{label}</button>
-    );
-  }
+const Button = ({ label, type, onClick, className }) => {
+  return (
+      <button type={type} className={'btn'.concat(` ${className}`)} onClick={onClick}>{label}</button>
+  );
 }
 
-export default Button;
+export { Button };

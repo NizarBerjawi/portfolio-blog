@@ -12,23 +12,15 @@ class Editor extends React.Component {
 
   componentDidMount() {
     const el = this.el;
-    const { content } = this.props;
+    const { content, onChange } = this.props;
 
     this.editor= new MediumEditor(el);
     this.editor.setContent(content);
 
     this.editor.subscribe('editableInput', e => {
       this._updated = true,
-      this.change(this.editor.getContent())
+      onChange(e)
     })
-  }
-
-  change(content) {
-    const { onChange } = this.props;
-
-    if (onChange) {
-      onChange(content);
-    };
   }
 
   componentWillUnmount() {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-let LoadingIndicator = ({ loading, children }) => {
+const LoadingIndicator = ({ loading, children }) => {
   if (loading) {
     return <div>Loading...</div>;
   }

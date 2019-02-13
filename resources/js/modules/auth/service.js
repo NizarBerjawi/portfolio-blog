@@ -1,4 +1,5 @@
 import * as Http from '../../utils/http';
+import store from 'store';
 
 // Log the user in to the application
 export function login(credentials) {
@@ -10,21 +11,21 @@ export function login(credentials) {
               text: res.statusText,
               statusCode: res.status
             };
-            return reject(data);
+            reject(data);
           }
           return res.json();
         })
         .then(res => {
-          localStorage.setItem('access_token', res.access_token);
-          sessionStorage.setItem('is_authenticated', true);
-          return resolve();
+          store.set('access_token', res.access_token);
+          store.set('is_authenticated', true);
+          resolve();
         })
         .catch((err) => {
           const data = {
             text: null,
             statusCode: err.response.status,
           };
-          return reject(data);
+          reject(data);
         });
   });
 }
@@ -39,12 +40,11 @@ export function logout() {
               text: res.statusText,
               statusCode: res.status
             };
-            return reject(data);
+            reject(data);
           }
 
-          localStorage.removeItem('access_token');
-          sessionStorage.removeItem('is_authenticated');
-          return resolve();
+          store.clearAll();
+          resolve();
         })
         .catch((err) => {
           const data = {
@@ -52,7 +52,7 @@ export function logout() {
             statusCode: err.response.status,
           };
 
-          return reject(data);
+          reject(data);
         });
   });
 }
@@ -67,24 +67,32 @@ export function fetchUser() {
               text: res.statusText,
               statusCode: res.status
             };
-            return reject(data);
+            reject(data);
           }
           return res.json();
         })
-        .then(res => resolve(res))
+        .then(res => {
+          store.set('user', res)
+          resolve(res)
+        })
         .catch((err) => {
           const data = {
             text: null,
             statusCode: err.response.status,
           };
 
-          return reject(data);
+          reject(data);
         });
   });
 }
 
 // Check if the user is authenticated
 export function check() {
-  return !!localStorage.getItem('access_token')
-         && sessionStorage.getItem('is_authenticated');
+  return store.get('access_token')
+         && store.get('is_authenticated');
+}
+
+// Get the user
+export function user() {
+  return store.get('user');
 }
