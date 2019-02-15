@@ -13,11 +13,7 @@ const Form =  ({ section, handleChange, onSubmit }) => {
           name="name"
           value={section.name}
           onChange={handleChange} />
-        <TextInput
-          label="Slug"
-          name="slug"
-          value={section.slug}
-          onChange={handleChange} />
+
         <TextInput
           label="Default Template"
           name="template"

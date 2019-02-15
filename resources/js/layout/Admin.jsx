@@ -53,9 +53,7 @@ class AdminLayout extends React.Component {
     const { sidebar } = this.state;
 
     this.setState({
-      sidebar: {
-        visible: !sidebar.visible
-      }
+      sidebar: { visible: !sidebar.visible }
     });
   }
 

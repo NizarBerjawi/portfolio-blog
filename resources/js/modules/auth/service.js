@@ -11,21 +11,20 @@ export function login(credentials) {
               text: res.statusText,
               statusCode: res.status
             };
-            reject(data);
+            return reject(data);
           }
           return res.json();
         })
         .then(res => {
           store.set('access_token', res.access_token);
-          store.set('is_authenticated', true);
-          resolve();
+          return resolve(res);
         })
         .catch((err) => {
           const data = {
             text: null,
             statusCode: err.response.status,
           };
-          reject(data);
+          return reject(data);
         });
   });
 }
@@ -40,11 +39,11 @@ export function logout() {
               text: res.statusText,
               statusCode: res.status
             };
-            reject(data);
+            return reject(data);
           }
 
           store.clearAll();
-          resolve();
+          return resolve();
         })
         .catch((err) => {
           const data = {
@@ -52,7 +51,7 @@ export function logout() {
             statusCode: err.response.status,
           };
 
-          reject(data);
+          return reject(data);
         });
   });
 }
@@ -67,13 +66,13 @@ export function fetchUser() {
               text: res.statusText,
               statusCode: res.status
             };
-            reject(data);
+            return reject(data);
           }
           return res.json();
         })
         .then(res => {
           store.set('user', res)
-          resolve(res)
+          return resolve(res)
         })
         .catch((err) => {
           const data = {
@@ -81,15 +80,14 @@ export function fetchUser() {
             statusCode: err.response.status,
           };
 
-          reject(data);
+          return reject(data);
         });
   });
 }
 
 // Check if the user is authenticated
 export function check() {
-  return store.get('access_token')
-         && store.get('is_authenticated');
+  return !!store.get('access_token');
 }
 
 // Get the user

@@ -8,9 +8,6 @@ import Form from './components/Form';
 import MediumEditor from 'medium-editor';
 
 class Page extends React.Component {
-  /**
-   *
-   */
   constructor(props) {
     super(props);
 
@@ -24,10 +21,10 @@ class Page extends React.Component {
   }
 
   /**
-   *
+   * Fetch the Section data from the server
    */
   componentDidMount() {
-    const slug = this.props.match.params.section;
+    const { section: slug} = this.props.match.params;
 
     PortfolioService
       .fetchSection(slug)
@@ -43,14 +40,7 @@ class Page extends React.Component {
   }
 
   /**
-   *
-   */
-  componentDidUpdate(prevProps) {
-
-  }
-
-  /**
-   *
+   * Handle any changes to the form inputs
    */
   handleChange(e) {
     e.preventDefault();
@@ -74,15 +64,7 @@ class Page extends React.Component {
 
     PortfolioService
       .saveSection(section.slug, section)
-      .then((res) => {
-        const { data } = res;
-        const { slug } = this.state.section;
-        const shouldRedirect = data.slug && data.slug !== slug
-
-        if (shouldRedirect) {
-          return window.location.replace(`/portfolio/${data.slug}/edit`)
-        };
-
+      .then(({ data }) => {
         this.setState({
           section: data,
           loading: false
@@ -91,6 +73,24 @@ class Page extends React.Component {
       .catch((err) => console.log('Error: ', err.text));
   }
 
+  /**
+   * Redirect to an updated route if the slug is different
+   */
+  componentDidUpdate(prevProps, prevState) {
+    const { slug: oldSlug } = prevState.section;
+    const { slug: newSlug } = this.state.section;
+
+    const shouldRedirect = oldSlug !== newSlug;
+
+    if (shouldRedirect) {
+      const route = `/portfolio/${newSlug}/edit`;
+      return this.props.history.replace(route);
+    };
+  }
+
+  /**
+   * Render the component
+   */
   render() {
     const { loading, section } = this.state;
 

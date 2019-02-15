@@ -24,22 +24,21 @@ class LoginForm extends React.Component {
   login(event) {
     event.preventDefault();
 
+    const { credentials } = this.state;
+
     this.setState({ submitted: true });
 
-    Auth.login(this.state.credentials)
-      .then(() => this.setState({ redirect: '/dashboard' }))
-      .catch((err) => {
-        if (!Auth.check()) {
-            this.setState({ submitted: false });
-        }
-        console.log('Error: ', err.text);
-      });
+    Auth.login(credentials)
+      .then(res => this.setState({ redirect: '/dashboard' }))
+      .catch(err => console.log('Error: ', err.text));
   }
 
   handleChange(e) {
+    const { credentials } = this.state;
+
     this.setState({
       credentials: {
-        ...this.state.credentials,
+        ...credentials,
         [e.target.name]: e.target.value
       }
     });

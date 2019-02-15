@@ -14,3 +14,5 @@
 Route::get('/', 'PortfolioController@index');
 
 Route::view('/{path?}', 'auth.login');
+
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
