@@ -2,6 +2,7 @@
 
 namespace Portfolio\Portfolio;
 
+use Mews\Purifier\Purifier;
 use Portfolio\Support\Slug\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -64,6 +65,16 @@ class Section extends Model
     public function getMarkupAttribute($value)
     {
       return $value ?? $this->defaultMarkup();
+    }
+
+    /**
+     *
+     */
+    public function setMarkupAttribute($value)
+    {
+        // $this->attributes['markup'] = app('purifier')->clean($value);
+        $this->attributes['markup'] = $value;
+
     }
 
     /**

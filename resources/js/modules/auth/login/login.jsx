@@ -1,55 +1,59 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import { TextInput } from '../../../common/form';
-import Illustration from './illustration.svg';
+import { HtmlForm, Input, Button } from '../../../common/form';
 import * as Auth from '../service';
+import Illustration from './illustration.svg';
 
-class LoginForm extends React.Component {
+class LoginForm extends Component {
   constructor() {
     super();
 
     this.state = {
       credentials: {
-          email: '',
-          password: '',
-          remember: false
+        email: '',
+        password: '',
       },
-      submitted: false
+      submitted: false,
     };
 
     this.login = this.login.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  login(event) {
-    event.preventDefault();
+  login(e) {
+    e.preventDefault();
 
     const { credentials } = this.state;
 
     this.setState({ submitted: true });
 
     Auth.login(credentials)
-      .then(res => this.setState({ redirect: '/dashboard' }))
-      .catch(err => console.log('Error: ', err.text));
+      .then(() => this.setState({ redirect: '/dashboard' }))
+      .catch(() => {
+        this.setState({ submitted: false });
+      });
   }
 
   handleChange(e) {
+    e.preventDefault();
+
+    const { name, value } = e.target;
     const { credentials } = this.state;
 
     this.setState({
       credentials: {
         ...credentials,
-        [e.target.name]: e.target.value
-      }
+        [name]: value,
+      },
     });
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} push />;
-    }
+    const { redirect, submitted, credentials } = this.state;
 
-    const { submitted } = this.state;
+    if (redirect) {
+      return <Redirect to={redirect} push />;
+    }
 
     return (
       <div className="page-holder d-flex align-items-center">
@@ -57,7 +61,7 @@ class LoginForm extends React.Component {
           <div className="row align-items-center py-5">
             <div className="col-5 col-lg-7 mx-auto mb-5 mb-lg-0">
               <div className="pr-lg-5">
-                <img src={require('./illustration.svg')} alt="" className="img-fluid" />
+                <img src={Illustration} alt="" className="img-fluid" />
               </div>
             </div>
 
@@ -66,31 +70,38 @@ class LoginForm extends React.Component {
               <h2 className="mb-4">Welcome back!</h2>
               <p className="text-muted">This dashboard is for admins only.</p>
 
-              <form className="mt-4" onSubmit={this.login}>
-                <TextInput
-                  placeholder="Email"
-                  name="email"
-                  value={this.state.credentials.email}
-                  onChange={e => this.handleChange(e)}/>
+              <HtmlForm onSubmit={this.login}>
 
-                <TextInput
+                <Input
+                  id="email"
+                  name="email"
+                  value={credentials.email}
+                  placeholder="Email"
+                  onChange={this.handleChange}
+                  errors={['test']}
+                />
+
+                <Input
+                  id="password"
+                  name="password"
+                  value={credentials.password}
                   type="password"
                   placeholder="Password"
-                  name="password"
-                  onChange={e => this.handleChange(e)}/>
+                  onChange={this.handleChange}
+                  errors={['test']}
+                />
 
                 <div className="form-group mb-4">
-                  <div className="custom-control custom-checkbox">
-                    <input className="form-check-input custom-control-input" type="checkbox" name="remember" id="remember" />
-                    <label htmlFor="remember" className="custom-control-label">Remember Me</label>
-                  </div>
-                </div>
+                  <Link to="/" className="btn btn-secondary shadow px-5">Cancel</Link>
 
-                <div className="form-group mb-4">
-                  <Link className="btn btn-secondary shadow px-5" to="/">Cancel</Link>
-                  <button type="submit" className="btn btn-primary shadow px-5" disabled={submitted}>{submitted ? 'Logging in' : 'Log in'}</button>
+                  <Button
+                    type="submit"
+                    className="btn btn-primary shadow px-5"
+                    disabled={submitted}
+                    label={submitted ? 'Logging In' : 'Log In'}
+                  />
                 </div>
-              </form>
+              </HtmlForm>
             </div>
           </div>
         </div>

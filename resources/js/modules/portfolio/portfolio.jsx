@@ -1,8 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Redirect, Link } from 'react-router-dom';
 import { AdminLayout } from '../../layout';
-import { Button } from '../../common/button';
+import { Button } from '../../common/form';
 import { Table } from '../../common/tables';
 import { Pagination } from '../../common/pagination';
 import * as PortfolioService from './service';
@@ -15,9 +14,9 @@ class Portfolio extends React.Component {
       pagination: {
         visible: false,
         links: {},
-        meta: {}
+        meta: {},
       },
-      loading: true
+      loading: true,
     };
 
     this.handlePageChange = this.handlePageChange.bind(this);
@@ -33,24 +32,30 @@ class Portfolio extends React.Component {
           pagination: {
             visible: meta.last_page > 1,
             links,
-            meta
+            meta,
           },
-          loading: false
+          loading: false,
         });
       })
-      .catch((err) => console.log('Error: ', err.text));
+      .catch(() => {
+        // handle
+      });
   }
 
-  handlePageChange(e) {
-    e.preventDefault();
+  get sections() {
+    const { sections } = this.state;
 
-    const href = e.target.href;
-
-    if (!(typeof href != undefined && href)) { return; }
-
-    this.setState({ loading: true });
-
-    this.loadSections(e)
+    return sections.map((section) => {
+      const action = (
+        <Link
+          to={`portfolio/${section.slug}/edit`}
+          className="btn btn-primary btn-sm"
+        >
+          Edit
+        </Link>
+      );
+      return { ...section, action };
+    });
   }
 
   loadSections(e) {
@@ -67,64 +72,66 @@ class Portfolio extends React.Component {
           pagination: {
             visible: meta.last_page > 1,
             links,
-            meta
+            meta,
           },
-          loading: false
+          loading: false,
         });
       })
-      .catch((err) => console.log('Error: ', err.text));
+      .catch(() => {
+        // handle
+      });
   }
 
-  get sections() {
-    return this.state.sections.map(section => {
-      const action = (
-        <Link
-          to={`portfolio/${section.slug}/edit`}
-          className="btn btn-primary btn-sm">
-            Edit
-        </Link>
-      );
-      return { ...section, action }
-    });
+  handlePageChange(e) {
+    e.preventDefault();
+
+    const { href } = e.target;
+
+    if (!(typeof href !== 'undefined' && href)) { return; }
+
+    this.setState({ loading: true });
+
+    this.loadSections(e);
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
+    const { redirect, loading, pagination } = this.state;
+    if (redirect) {
+      return <Redirect to={redirect} />;
     }
 
     return (
-        <AdminLayout>
-          <div className="container-fluid px-xl-5">
-            <section className="py-5">
+      <AdminLayout>
+        <div className="container-fluid px-xl-5">
+          <section className="py-5">
             <div className="col-lg-12 mb-4">
               <div className="card">
                 <div className="card-header">
                   <h6 className="text-uppercase mb-0">Portfolio Sections</h6>
 
                   <div className="float-right">
-                    <Button className="btn-primary" label="Add" type="submit"/>
+                    <Button className="btn-primary" label="Add" type="submit" />
                   </div>
                 </div>
                 <div className="card-body">
                   <Table
                     headers={['ID', 'Section', 'Last Updated', 'Action']}
                     data={this.sections}
-                    loading={this.state.loading}
+                    loading={loading}
                   />
 
                   <Pagination
-                    pagination={this.state.pagination}
-                    changePage={e => this.handlePageChange(e)}
+                    pagination={pagination}
+                    changePage={this.handlePageChange}
                     pageRange={4}
-                    visible={!this.state.loading && this.state.pagination.visible}
+                    visible={!loading && pagination.visible}
                   />
                 </div>
               </div>
             </div>
-            </section>
-          </div>
-        </AdminLayout>
+          </section>
+        </div>
+      </AdminLayout>
     );
   }
 }

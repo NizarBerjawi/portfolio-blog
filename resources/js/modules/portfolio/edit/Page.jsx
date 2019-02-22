@@ -1,11 +1,9 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import { AdminLayout } from '../../../layout';
 import { Card, CardHeader, CardBody } from '../../../common/card';
 import LoadingIndicator from '../../../common/loader';
 import * as PortfolioService from '../service';
 import Form from './components/Form';
-import MediumEditor from 'medium-editor';
 
 class Page extends React.Component {
   constructor(props) {
@@ -13,8 +11,8 @@ class Page extends React.Component {
 
     this.state = {
       section: {},
-      loading: true
-    }
+      loading: true,
+    };
 
     this.handleSave = this.handleSave.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -24,7 +22,7 @@ class Page extends React.Component {
    * Fetch the Section data from the server
    */
   componentDidMount() {
-    const { section: slug} = this.props.match.params;
+    const { section: slug } = this.props.match.params;
 
     PortfolioService
       .fetchSection(slug)
@@ -33,10 +31,30 @@ class Page extends React.Component {
 
         this.setState({
           section: data,
-          loading: false
+          loading: false,
         });
       })
-      .catch((err) => console.log('Error: ', err.text));
+      .catch(() => {
+        // handle
+      });
+  }
+
+  /**
+   * Redirect to an updated route if the slug is different
+   */
+  componentDidUpdate(prevProps, prevState) {
+    const { section } = this.state;
+    const { slug: newSlug } = section;
+    const { slug: oldSlug } = prevState.section;
+
+    const shouldRedirect = oldSlug !== newSlug;
+
+    if (shouldRedirect) {
+      const { history } = this.props;
+      const route = `/portfolio/${newSlug}/edit`;
+
+      history.replace(route);
+    }
   }
 
   /**
@@ -45,12 +63,13 @@ class Page extends React.Component {
   handleChange(e) {
     e.preventDefault();
 
+    const { section } = this.state;
     const elem = e.target;
-    const data = elem.isContentEditable ?
-      {markup: elem.innerHTML} : {[elem.name]: elem.value};
+    const data = elem.isContentEditable
+      ? { markup: elem.innerHTM } : { [elem.name]: elem.value };
 
     this.setState({
-      section: {...this.state.section, ...data }
+      section: { ...section, ...data },
     });
   }
 
@@ -64,35 +83,27 @@ class Page extends React.Component {
 
     PortfolioService
       .saveSection(section.slug, section)
-      .then(({ data }) => {
-        this.setState({
-          section: data,
-          loading: false
-        });
+      .then((res) => {
+        if (Object.prototype.hasOwnProperty.call(res, 'errors')) {
+          const { errors } = res;
+          this.setState({ errors });
+        }
+
+        // this.setState({
+        //   section: res.data,
+        //   loading: false
+        // });
       })
-      .catch((err) => console.log('Error: ', err.text));
-  }
-
-  /**
-   * Redirect to an updated route if the slug is different
-   */
-  componentDidUpdate(prevProps, prevState) {
-    const { slug: oldSlug } = prevState.section;
-    const { slug: newSlug } = this.state.section;
-
-    const shouldRedirect = oldSlug !== newSlug;
-
-    if (shouldRedirect) {
-      const route = `/portfolio/${newSlug}/edit`;
-      return this.props.history.replace(route);
-    };
+      .catch(() => {
+        // handle
+      });
   }
 
   /**
    * Render the component
    */
   render() {
-    const { loading, section } = this.state;
+    const { loading, section, errors } = this.state;
 
     return (
       <AdminLayout>
@@ -107,7 +118,9 @@ class Page extends React.Component {
                       <Form
                         section={section}
                         handleChange={this.handleChange}
-                        onSubmit={this.handleSave} />
+                        onSubmit={this.handleSave}
+                        errors={errors}
+                      />
                     </LoadingIndicator>
                   </CardBody>
                 </Card>
@@ -120,4 +133,4 @@ class Page extends React.Component {
   }
 }
 
-export default Page
+export default Page;

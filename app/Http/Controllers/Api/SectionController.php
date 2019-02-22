@@ -8,6 +8,7 @@ use Portfolio\Portfolio\Section;
 use App\Http\Controllers\Controller;
 use Portfolio\Portfolio\SectionResource;
 use Portfolio\Portfolio\SectionCollection;
+use Portfolio\Portfolio\Requests\UpdateSection;
 
 class SectionController extends Controller
 {
@@ -49,7 +50,7 @@ class SectionController extends Controller
      * @param  Section  $section
      * @return Response
      */
-    public function update(Request $request, Section $section)
+    public function update(UpdateSection $request, Section $section)
     {
       $data = $request->only($section->getFillable());
 

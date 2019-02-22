@@ -1,23 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom';
 import { AdminLayout } from '../../layout';
 
 class Posts extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {};
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to={redirect} />;
     }
 
     return (
-        <AdminLayout>
-          <div className="container-fluid px-xl-5">
-            <section className="py-5">
+      <AdminLayout>
+        <div className="container-fluid px-xl-5">
+          <section className="py-5">
             <div className="col-lg-6 mb-4">
               <div className="card">
                 <div className="card-header">
@@ -50,22 +52,22 @@ class Posts extends React.Component {
                         <th scope="row">3</th>
                         <td>Larry</td>
                         <td>the Bird</td>
-                        <td>@twitter                            </td>
+                        <td>@twitter</td>
                       </tr>
                       <tr>
                         <th scope="row">3</th>
                         <td>Sam</td>
                         <td>Nevoresky</td>
-                        <td>@facebook                            </td>
+                        <td>@facebook</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
-            </section>
-          </div>
-        </AdminLayout>
+          </section>
+        </div>
+      </AdminLayout>
     );
   }
 }

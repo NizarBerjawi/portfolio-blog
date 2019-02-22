@@ -1,10 +1,11 @@
 import Post from './posts';
 
 export default [
-    {
-        path:'/posts',
-        exact: true,
-        auth: true,
-        component: Post,
-    }
-]
+  {
+    path: '/posts',
+    name: 'posts.index',
+    exact: true,
+    auth: true,
+    component: Post,
+  },
+];

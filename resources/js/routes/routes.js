@@ -7,5 +7,5 @@ export default [
   ...dashboardRoutes,
   ...authRoutes,
   ...portfolioRoutes,
-  ...postsRoutes
+  ...postsRoutes,
 ];

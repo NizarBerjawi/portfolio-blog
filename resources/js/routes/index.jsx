@@ -8,16 +8,17 @@ import PublicRoute from './public';
 const history = createBrowserHistory();
 
 const Routes = () => (
-    <Router history={history}>
-        <Switch>
-            {routes.map((route, i) => {
-                if (route.auth) {
-                    return <PrivateRoute key={i} {...route} />
-                }
-                return <PublicRoute key={i} {...route} />
-            })}
-        </Switch>
-    </Router>
-)
+  <Router history={history}>
+    <Switch>
+      {routes.map((route) => {
+        if (route.auth) {
+          return <PrivateRoute key={route.name} {...route} />;
+        }
+        return <PublicRoute key={route.name} {...route} />;
+      })}
+      ;
+    </Switch>
+  </Router>
+);
 
 export default Routes;

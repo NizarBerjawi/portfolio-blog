@@ -81,11 +81,11 @@ class Handler extends ExceptionHandler
 
             $validationErrors = $exception->validator->errors()->getMessages();
 
-            $validationErrors = array_map(function($error) {
-                return array_map(function($message) {
-                    return remove_words($message, 2);
-                }, $error);
-            }, $validationErrors);
+            // $validationErrors = array_map(function($error) {
+            //     return array_map(function($message) {
+            //         return remove_words($message, 2);
+            //     }, $error);
+            // }, $validationErrors);
 
             return response()->json(['errors' => $validationErrors], 422);
         }
