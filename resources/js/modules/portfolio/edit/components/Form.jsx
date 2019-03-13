@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Editor } from '../../../../common/editor';
+import Editor from '../../../../common/editor/editor';
 import { HtmlForm, Input, Button } from '../../../../common/form';
 
 const Form = ({

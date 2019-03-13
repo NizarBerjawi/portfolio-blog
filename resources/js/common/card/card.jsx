@@ -1,11 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Card = ({ children }) => {
+const Card = (props) => {
+  const { children } = props;
+
   return (
     <div className="card">
       {children}
     </div>
   );
-}
+};
 
-export { Card };
+Card.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+};
+
+export default Card;

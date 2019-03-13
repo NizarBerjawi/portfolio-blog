@@ -1,22 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-let getPageRange = (size, startAt = 0) => {
-  return [...Array(size).keys()].map(i => i + startAt);
-}
+const getPageRange = (size, startAt = 0) => (
+  [...Array(size).keys()].map(i => i + startAt)
+);
 
-let Pagination = ({ pagination = {}, changePage, pageRange = 3, visible = true }) => {
+const Pagination = ({
+  pagination = {},
+  changePage,
+  pageRange,
+  visible,
+}) => {
   if (!visible) { return null; }
   // The current page
-  const current = pagination.meta.current_page;
+  const { current_page: current } = pagination.meta;
   // The last available page of data
-  const last = pagination.meta.last_page;
+  const { last_page: last } = pagination.meta;
 
   let page = 1;
   // An array representing the range of pages
   let pages = [];
   while (page <= last) {
-    let range = getPageRange(pageRange, page);
+    const range = getPageRange(pageRange, page);
     if (range.includes(current)) {
       pages = [...range];
       break;
@@ -28,7 +33,7 @@ let Pagination = ({ pagination = {}, changePage, pageRange = 3, visible = true }
   const PageLinks = () => pages.map(
     (page) => {
       const isCurrent = (page === current);
-      let classes = ['page-item'];
+      const classes = ['page-item'];
 
       if (isCurrent) { classes.push('active'); }
       if (page > last) { return false; }
@@ -38,12 +43,13 @@ let Pagination = ({ pagination = {}, changePage, pageRange = 3, visible = true }
           <a
             className="page-link"
             href={`${pagination.meta.path}?page=${page}`}
-            onClick={changePage}>
-              {page}
+            onClick={changePage}
+          >
+            {page}
           </a>
         </li>
       );
-    }
+    },
   );
 
   return (
@@ -54,7 +60,9 @@ let Pagination = ({ pagination = {}, changePage, pageRange = 3, visible = true }
             className="page-link"
             href={pagination.links.prev}
             onClick={changePage}
-            aria-label="Previous">&laquo;
+            aria-label="Previous"
+          >
+            &laquo;
           </a>
         </li>
 
@@ -65,12 +73,26 @@ let Pagination = ({ pagination = {}, changePage, pageRange = 3, visible = true }
             className="page-link"
             href={pagination.links.next}
             onClick={changePage}
-            aria-label="Next">&raquo;
+            aria-label="Next"
+          >
+            &raquo;
           </a>
         </li>
       </ul>
     </nav>
   );
-}
+};
+
+Pagination.propTypes = {
+  pagination: PropTypes.shape({}).isRequired,
+  changePage: PropTypes.func.isRequired,
+  pageRange: PropTypes.number,
+  visible: PropTypes.bool,
+};
+
+Pagination.defaultProps = {
+  pageRange: 3,
+  visible: true,
+};
 
 export default Pagination;

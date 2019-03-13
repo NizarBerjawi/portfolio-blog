@@ -1,8 +1,6 @@
-import store from 'store';
-import React from 'react';
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
 import LoadingIndicator from '../common/loader';
 import Notifications from '../common/header/notifications';
 import UserInfo from '../common/header/userInfo';
@@ -18,8 +16,8 @@ class AdminLayout extends React.Component {
 
     this.state = {
       sidebar: { visible: true },
-      loading: true
-    }
+      loading: true,
+    };
 
     this.handleLogout = this.handleLogout.bind(this);
     this.toggleSidebar = this.toggleSidebar.bind(this);
@@ -35,16 +33,20 @@ class AdminLayout extends React.Component {
     }
 
     Auth.fetchUser()
-      .then(res => this.setState({ user: res, loading: false}))
-      .catch((err) => console.log('Error: ', err.text));
+      .then(res => this.setState({ user: res, loading: false }))
+      .catch(
+        // handle errors
+      );
   }
 
   handleLogout(e) {
     e.preventDefault();
 
     Auth.logout()
-      .then(() => this.setState({ redirect: '/login' }) )
-      .catch((err) => console.log('Error: ', err.text) );
+      .then(() => this.setState({ redirect: '/login' }))
+      .catch(
+        // handle errors
+      );
   }
 
   toggleSidebar(e) {
@@ -53,30 +55,33 @@ class AdminLayout extends React.Component {
     const { sidebar } = this.state;
 
     this.setState({
-      sidebar: { visible: !sidebar.visible }
+      sidebar: { visible: !sidebar.visible },
     });
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to={redirect} />;
     }
 
     const { loading, user, sidebar } = this.state;
+    const { children } = this.props;
 
     return (
       <LoadingIndicator loading={loading}>
         <Fragment>
           <Header title="Dashobard" toggleSidebar={this.toggleSidebar}>
             <Notifications />
-            <UserInfo user={user} logout={this.handleLogout}/>
+            <UserInfo user={user} logout={this.handleLogout} />
           </Header>
 
           <div className="d-flex align-items-stretch">
-            <Sidebar visible={sidebar.visible}/>
+            <Sidebar visible={sidebar.visible} />
 
             <div className="page-holder w-100 d-flex flex-wrap">
-              {this.props.children}
+              {children}
               <Footer />
             </div>
           </div>
@@ -85,5 +90,13 @@ class AdminLayout extends React.Component {
     );
   }
 }
+
+AdminLayout.propTypes = {
+  children: PropTypes.shape({}),
+};
+
+AdminLayout.defaultProps = {
+  children: {},
+};
 
 export default AdminLayout;

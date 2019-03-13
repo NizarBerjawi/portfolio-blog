@@ -1,3 +1,9 @@
-export * from './card';
-export * from './card-body';
-export * from './card-header';
+import Card from './card';
+import CardBody from './card-body';
+import CardHeader from './card-header';
+
+export {
+  Card,
+  CardBody,
+  CardHeader,
+};

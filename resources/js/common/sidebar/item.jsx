@@ -1,28 +1,27 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-let NavItem = ({ title, path, active = false, icon, toggle = false, children }) => {
-  let subItems;
-
-  let linkAttributes = {
+const NavItem = ({ title, path, active = false, icon, toggle = false, children }) => {
+  const linkAttributes = {
     className: 'sidebar-link text-muted'.concat(active ? ' active' : ''),
     to: path,
-  }
+  };
 
   if (toggle) {
-    let target = title.toLowerCase();
+    const target = title.toLowerCase();
     linkAttributes['data-toggle'] = 'collapse';
-    linkAttributes['data-target'] = '#'+target;
+    linkAttributes['data-target'] = `#${target}`;
     linkAttributes['aria-expanded'] = toggle;
     linkAttributes['aria-controls'] = target;
-    linkAttributes['to'] = '#';
+    linkAttributes.to = '#';
 
-    subItems = (
+    const subItems = (
       <div id={target} className="collapse">
         <ul className="sidebar-menu list-unstyled border-left border-primary border-thick">
           {children}
         </ul>
-      </div>);
+      </div>
+    );
   }
 
   return (
@@ -31,7 +30,6 @@ let NavItem = ({ title, path, active = false, icon, toggle = false, children }) 
         <i className={'mr-3 text-gray'.concat(icon ? ` ${icon}` : '')}></i><span>{title}</span>
       </Link>
       {toggle && subItems}
-
     </li>
   );
 }

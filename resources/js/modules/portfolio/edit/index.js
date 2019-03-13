@@ -1,3 +1,5 @@
 import Page from './Page';
 
-export { Page };
+export {
+  Page,
+};

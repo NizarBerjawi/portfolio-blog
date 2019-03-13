@@ -2,13 +2,15 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { AdminLayout } from '../../layout';
 import { Button } from '../../common/form';
-import { Table } from '../../common/tables';
-import { Pagination } from '../../common/pagination';
+import Table from '../../common/tables/table';
+import Pagination from '../../common/pagination';
+import { Card, CardHeader, CardBody } from '../../common/card';
 import * as PortfolioService from './service';
 
 class Portfolio extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       sections: [],
       pagination: {
@@ -105,15 +107,17 @@ class Portfolio extends React.Component {
         <div className="container-fluid px-xl-5">
           <section className="py-5">
             <div className="col-lg-12 mb-4">
-              <div className="card">
-                <div className="card-header">
+              <Card>
+                <CardHeader>
                   <h6 className="text-uppercase mb-0">Portfolio Sections</h6>
 
                   <div className="float-right">
                     <Button className="btn-primary" label="Add" type="submit" />
                   </div>
-                </div>
-                <div className="card-body">
+                </CardHeader>
+
+                <CardBody>
+
                   <Table
                     headers={['ID', 'Section', 'Last Updated', 'Action']}
                     data={this.sections}
@@ -126,8 +130,10 @@ class Portfolio extends React.Component {
                     pageRange={4}
                     visible={!loading && pagination.visible}
                   />
-                </div>
-              </div>
+
+                </CardBody>
+
+              </Card>
             </div>
           </section>
         </div>

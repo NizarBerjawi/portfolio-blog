@@ -1,11 +1,11 @@
-import Dashboard from './Dashboard';
+import Dashboard from './dashboard';
 
 export default [
-    {
-        path:'/dashboard',
-        name: 'dashboard.index',
-        exact: true,
-        auth: true,
-        component: Dashboard
-    }
-]
+  {
+    path: '/dashboard',
+    name: 'dashboard.index',
+    exact: true,
+    auth: true,
+    component: Dashboard,
+  },
+];
